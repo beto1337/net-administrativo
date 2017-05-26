@@ -12,6 +12,7 @@
 <link href="{{ asset('/img/favicon.png') }}" rel="icon" type="image/x-icon" />
 
    <link href="{{ asset('css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css" />
+   <link href="{{ asset('themes/explorer/theme.css')}}" rel="stylesheet">
 
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->

@@ -27,74 +27,9 @@ class StorageController extends Controller
 
 
 
-public function editarproducto(Request $request)
-{
-$codigo=DB::table('app_productos')->where('id',$request->id)->take(1)->get();
-foreach ($codigo as $value) {
-  $codigo=$value->codigo;
-  $link=$value->imagenes;
-}
-  if ($request->hasfile('kartik-input-700')) {
-    $files=$request->file('kartik-input-700');
-    foreach ($files as $file) {
-      $s3 = \Storage::disk('s3');
-      $imageFileName = mt_rand(1,2147) . '.' . $file->getClientOriginalExtension();
-      $filePath = '/'.$codigo.'/' . $imageFileName;
-      $s3->put($filePath, file_get_contents($file), 'public');
-      $link_req[]='https://s3-sa-east-1.amazonaws.com/app-loung'.$filePath;
-    }
-  $linki=implode(",",$link_req);
-  }else {
-    $link=",";
-    return "no tiene";
-  }
-  $link=$link.",".$link;
-DB::table('app_productos')->where('id', $request->id)->update(['nombre' => strtoupper($request->nombre),'descripcion'=>strtoupper($request->ciudad),'vl_minorista'=>$request->vrminorista,'vl_mayorista'=>$request->vrmayorista]);
-Session::flash('flash_message', 'Se ha  modificado el producto: ' .strtoupper($request->nombre));
-return back();
-}
-public function registrarbodega(Request $request)
-{
-  $this->validate($request, ['nombre' => 'required','ciudad' => 'required','direccion' => 'required','telefono' => 'required',]);
-  $todo=$request->all();
-  $contador1=DB::table('app_bodegas')->where('nombre',$todo['nombre'])->where('ciudad',$todo['ciudad'])->count();
-  $contador2=DB::table('app_bodegas')->where('ciudad',$todo['ciudad'])->where('direccion',$todo['direccion'])->count();
-  if ($contador1>0 or $contador2>0) {
-    Session::flash('flash_message', 'Ya existe una bodega con estas catracteristicas');
-    return back();
-    }
-DB::table('app_bodegas')->insert([['nombre'=>strtoupper($todo['nombre']),'ciudad'=>strtoupper($todo['ciudad']),'direccion'=>strtoupper($todo['direccion']),'telefono'=>$todo['telefono']]]);
-Session::flash('flash_message', 'se ha guardado la bodega: ' .strtoupper($todo['nombre']));
-return back();
-}
-public function editarbodega(Request $request)
-{
-DB::table('app_bodegas')->where('id', $request->id)->update(['nombre' => strtoupper($request->nombre),'ciudad'=>strtoupper($request->ciudad),'direccion'=>strtoupper($request->direccion),'telefono'=>$request->telefono]);
-Session::flash('flash_message', 'Se ha guardado modificado la bodega: ' .strtoupper($request->nombre));
-return back();
-}
-public function registrarcliente(Request $request)
-{
-$this->validate($request, [
-  'nombre' => 'required',
-  'apellido' => 'required',
-  'cedula' => 'required|numeric',
-  'telefono' => 'required',
-  'celular'=>'required',
-  'correo' => 'required|email|unique:app_clientes',
-  'direccion' => 'required',]);
 
-$contador1=DB::table('app_clientes')->where('cedula',$request->cedula)->count();
-if ($contador1>0) {
-Session::flash('flash_message', 'Ya existe un usuario registrado con este numero de cedula');
-return back();
-}
-DB::table('app_clientes')->insert([['nombre'=>strtoupper($request->nombre),'apellido'=>strtoupper($request->apellido),
-'cedula'=>$request->cedula,'telefono'=>$request->telefono,'celular'=>$request->celular,
-'correo'=>$request->correo,'direccion'=>$request->direccion,'tipo'=>$request->tipo]]);
-Session::flash('flash_message', 'se ha guardado el cliente: ' .strtoupper($request->nombre)." ".strtoupper($request->apellido));
-return back();
-}
+
+
 public function editarcliente(Request $request)
 {
   DB::table('app_clientes')->where('id', $request->id)->update([
@@ -294,7 +229,7 @@ return $pdf->stream('invoice');
   $productos=explode(",", $request->productos);
   $totales=explode(",", $request->total);
   $reservados=explode(",", $request->reservado);
-  $view =  \View::make('pdf.pdf')->with(array('productos' =>$productos,'reservados' =>$reservados,'totales' =>$totales,'iteracions' =>$request->iteraciones,'bodegas'=>$request->bodegas,'decide'=>'1'))->render();
+  $view =  \View::make('pdf.pdf')->with(array('productos' =>$productos,'reservados' =>$reservados,'totales' =>$totales,'iteracions' =>$request->iteraciones,'s'=>$request->s,'decide'=>'1'))->render();
   $pdf = \App::make('dompdf.wrapper');
   $pdf->loadHTML($view);
   return $pdf->stream('invoice');

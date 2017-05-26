@@ -31,6 +31,11 @@ class CategoriasController extends Controller
      $categorias=DB::table('app_listas')->where('id_tipo_lista',4)->get();
      return View::make("categorias.registrarcategoria")->with(array('categorias'=>$categorias));
    }
+   public function editarc()
+   {
+     $categorias=DB::table('app_listas')->where('id_tipo_lista',4)->get();
+     return View::make("categorias.editarcategorias")->with(array('categorias'=>$categorias));
+   }
    public function crear(Request $request)
    {
      $this->validate($request, [

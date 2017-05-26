@@ -11,58 +11,14 @@ use Auth;
 
 class ViewController extends Controller
 {
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-      $this->middleware('auth');
-  }
 
 
-  public function editarproducto()
-  {
-    $productos=DB::table('app_productos')->get();
-    return View::make("edits.editproduct")->with(array('productos'=>$productos));
-  }
-  public function productos()
-  {
-  $productos=DB::table('app_productos')->get();
-  return View::make("buscar.buscarproducto")->with(array('productos'=>$productos));
-  }
-  public function productoid()
-  {
-$id=$_GET['id'];
-  $productos=DB::table('app_productos')->where('codigo',$id)->take(1)->get();
-  return View::make("show.producto")->with(array('productos'=>$productos));
-  }
 
 
-  public function registrarbodega()
-  {
-    $bodegas=DB::table('app_bodegas')->get();
-    return View::make("register.registerstorage")->with(array('bodegas'=>$bodegas));
-  }
-  public function editarbodega()
-  {
-    $bodegas=DB::table('app_bodegas')->get();
-    return View::make("edits.editstorage")->with(array('bodegas'=>$bodegas));
-  }
 
-  public function editarcliente()
-  {
-    $tipos=DB::table('app_listas')->where('id_tipo_lista',3)->get();
-    $clientes=DB::table('app_clientes')->get();
-    return View::make("edits.editclient")->with(array('clientes'=>$clientes,'tipos'=>$tipos));
-  }
-  public function registrarcliente()
-  {
-    $tipos=DB::table('app_listas')->where('id_tipo_lista',3)->get();
-    $clientes=DB::table('app_clientes')->get();
-    return View::make("register.registercliente")->with(array('clientes'=>$clientes,'tipos'=>$tipos));
-  }
+
+
+
   public function entradaproducto()
   {
     $items=DB::table('app_listas')->where('id_tipo_lista',1)->get();
@@ -200,12 +156,7 @@ foreach ($movimientos as $value) {
 }
 return View('show.movimiento')->with(array('movimientos'=>$movimientos,'descripcion'=>$descripcion));
 }
-public function inventarioform()
-{
-  $productos=DB::table('app_productos')->get();
-  $bodegas=DB::table('app_bodegas')->get();
-return View('show.inventarioform')->with(array('productos'=>$productos,'bodegas'=>$bodegas));
-}
+
 
 
 

@@ -26,7 +26,7 @@ return $producto;
 
 function validarlista($id,$lista){
   if (empty($id)) {
-return"";
+return "";
   }else {
 $producto=DB::table('app_listas')->select('valor_item')->where('id_tipo_lista',$lista)->where('valor_lista',$id)->take(1)->get();
 foreach ($producto as $product) {
@@ -81,14 +81,16 @@ foreach ($producto as $product) {
 return $producto;
 }
 }
-function buscarimagenes($link)
+function buscarimagenes($link,$codigo)
 {
 if (empty($link)) {
 echo "<label>no hay imagenes para mostrar</label>";
 }else {
 $links = explode(",", $link);
 for ($i=0; $i <count($links) ; $i++) {
-echo '<img src="'.$links[$i].'" alt="" class=" img-responsive " width="100px">';
+echo '<div class="col-md-4"><div class="thumbnail">';
+echo '<img src="'.rutaimagenes().'/'.$links[$i].'" alt="" class=" img-responsive" width="100%">';
+echo "</div></div>";
 }
 }
 }
@@ -98,4 +100,8 @@ if ($valor<3) {
 return $valor;
 }
 return quehace($valor-1)*quehace($valor-2);
+}
+function rutaimagenes()
+{
+return "http://localhost/net-administrativo/storage/app/public";
 }
