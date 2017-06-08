@@ -150,6 +150,7 @@ return [
         Acacha\AdminLTETemplateLaravel\Providers\AdminLTETemplateServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Webup\LaravelSendinBlue\SendinBlueServiceProvider::class,
         /*
          * Application Service Providers...
          */

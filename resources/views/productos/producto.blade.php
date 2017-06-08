@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.app')
+@extends('layouts.app')
 
 @section('htmlheader_title')
 	{{ trans('adminlte_lang::message.home') }}
@@ -40,6 +40,10 @@
                                     <td>Codigo</td>
                                     <td>{{$producto->codigo}}</td>
                                   </tr>
+																	<tr>
+																		<td>Categoria</td>
+																		<td>{{validarlista($producto->categoria,4)}}</td>
+																	</tr>
                                   <tr>
                                     <td>descripcion</td>
                                     <td>{{$producto->descripcion}}</td>

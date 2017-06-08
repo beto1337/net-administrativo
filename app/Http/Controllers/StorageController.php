@@ -23,13 +23,6 @@ class StorageController extends Controller
    */
   public function __construct()
   {    $this->middleware('auth');}
-
-
-
-
-
-
-
 public function editarcliente(Request $request)
 {
   DB::table('app_clientes')->where('id', $request->id)->update([
@@ -151,66 +144,7 @@ return back();
 
 
 }
-public function registrarreserva(Request $request)
-{
 
-  $bodega=$request->bodega_item;
-  if ($bodega ==0) {
-    Session::flash('error_message', "debe seleccionar una bodega" );
-    return back();
-    }
-  $this->validate($request, [
-    'cantidad' => 'required',
-    'tiempo' => 'required',
-    'direccion'=>'required',
-  ]);
-  $tiempo=$request->tiempo;
-
-  $fechaini=buscarfecha2(substr($tiempo, 0, 17));
-  $fechafin=buscarfecha2(substr($tiempo, 18, 17));
-
-
-  $cantidad=$request->cantidad;
-  $productos=$request->producto;
-  for ($i=0; $i < count($request->producto) ; $i++) {
-    $totalp="";
-    $total=DB::table('app_movimientos')->where('producto_id', $productos[$i])->where('bodega',$bodega )->take(1)->orderby('creado','desc')->get();
-    foreach ($total as $value) {
-      $totalp=$value->total;
-    }
-    if (empty($total)) {
-      Session::flash('error_message', 'El producto '. validarproductoporcodigo($productos[$i]). " no registra suficientes unidades disponibles" );
-      return back();
-    }
-
-
-
-    $disponible=DB::table('app_reservas')->whereBetween(['desde', [$fechaini, $fechafin]],['hasta', [$fechaini, $fechafin]])->where('bodega')->get();
-    foreach ($disponible as $value) {
-        $cantidadinicial=0;
-      $productosre=$value->producto;
-      $coincidencia = strpos($productosre, $productos[$i]);
-      if (!($coincidencia === false)) {
-       $produc=explode(",", $value->producto);
-       $cant=explode(",", $value->cantidad);
-       $position=array_search($productos[$i], $produc);
-       $cantidadinicial=$cantidadinicial+$cant[$position];//aqui esta la cantidad reservada
-       $totalp=$totalp-$cantidadinicial;
-if ($cantidad[$i]> $totalp) {
-  Session::flash('error_message', 'Solo exiten '.$totalp.' '. validarproductoporcodigo($productos[$i]). ' disponibles entre estas fechas' );
-  return back();
-  }
-    }
-    }
-  }
-
-  $productosguardar=implode(",", $productos);
-  $cantidadguardar=implode(",",$cantidad);
-  DB::table('app_reservas')->insert([['desde'=>$fechaini,'hasta'=>$fechafin,'producto'=>$productosguardar,'cantidad'=>$cantidadguardar,'bodega'=>$bodega]]);
-  Session::flash('flash_message', 'Reserva exitosa' );
-  return back();
-
-}
 public function inventario(Request $request)
 {
 

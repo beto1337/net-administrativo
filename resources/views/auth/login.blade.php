@@ -11,10 +11,10 @@
   <strong>Grandioso!</strong> {{Session::get('flash_message')}}
 </div>
 @endif
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-color:white">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/home') }}"><b>ADMINISTRACIÓN</b> JAQUE</a>
+            <a href="{{ url('/home') }}"><img style="width:180px" src="{{rutaimagenes()}}/oclock.png" alt="">
         </div><!-- /.login-logo -->
 
     @if (count($errors) > 0)

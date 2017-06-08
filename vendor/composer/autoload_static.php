@@ -35,6 +35,7 @@ class ComposerStaticInit8ae13909acde7676d8f533aa75d5cc9f
         ),
         'W' => 
         array (
+            'Webup\\LaravelSendinBlue\\' => 24,
             'Webmozart\\Assert\\' => 17,
         ),
         'T' => 
@@ -131,6 +132,10 @@ class ComposerStaticInit8ae13909acde7676d8f533aa75d5cc9f
         'XdgBaseDir\\' => 
         array (
             0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
+        ),
+        'Webup\\LaravelSendinBlue\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webup/laravel-sendinblue/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -318,6 +323,10 @@ class ComposerStaticInit8ae13909acde7676d8f533aa75d5cc9f
             array (
                 0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
             ),
+            'Sendinblue' => 
+            array (
+                0 => __DIR__ . '/..' . '/mailin-api/mailin-api-php/src',
+            ),
             'Sabberworm\\CSS' => 
             array (
                 0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
@@ -408,6 +417,7 @@ class ComposerStaticInit8ae13909acde7676d8f533aa75d5cc9f
         'App\\Http\\Controllers\\CategoriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoriasController.php',
         'App\\Http\\Controllers\\ClientesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientesController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\EstadosController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadosController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\InventariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/InventariosController.php',
         'App\\Http\\Controllers\\MovimientosController' => __DIR__ . '/../..' . '/app/Http/Controllers/MovimientosController.php',
@@ -3343,6 +3353,7 @@ class ComposerStaticInit8ae13909acde7676d8f533aa75d5cc9f
         'SebastianBergmann\\RecursionContext\\Exception' => __DIR__ . '/..' . '/sebastian/recursion-context/src/Exception.php',
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Sendinblue\\Mailin' => __DIR__ . '/..' . '/mailin-api/mailin-api-php/src/Sendinblue/Mailin.php',
         'SuperClosure\\Analyzer\\AstAnalyzer' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Analyzer/AstAnalyzer.php',
         'SuperClosure\\Analyzer\\ClosureAnalyzer' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Analyzer/ClosureAnalyzer.php',
         'SuperClosure\\Analyzer\\Token' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Analyzer/Token.php',
@@ -3896,6 +3907,9 @@ class ComposerStaticInit8ae13909acde7676d8f533aa75d5cc9f
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
+        'Webup\\LaravelSendinBlue\\SendinBlueException' => __DIR__ . '/..' . '/webup/laravel-sendinblue/src/SendinBlueException.php',
+        'Webup\\LaravelSendinBlue\\SendinBlueServiceProvider' => __DIR__ . '/..' . '/webup/laravel-sendinblue/src/SendinBlueServiceProvider.php',
+        'Webup\\LaravelSendinBlue\\SendinBlueTransport' => __DIR__ . '/..' . '/webup/laravel-sendinblue/src/SendinBlueTransport.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',

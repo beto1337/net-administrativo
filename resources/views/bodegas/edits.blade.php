@@ -1,12 +1,10 @@
-@extends('adminlte::layouts.app')
+@extends('layouts.app')
 
 @section('htmlheader_title')
 	{{ trans('adminlte_lang::message.home') }}
 @endsection
 
-
 @section('main-content')
-
 <div class="row">
 		<div class="col-lg-10">
 			<div class="box box-primary">

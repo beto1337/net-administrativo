@@ -22,14 +22,13 @@
       <!-- bootstrap.js below is needed if you wish to zoom and view file content
            in a larger detailed modal dialog -->
            <script type="text/javascript" src="{{ asset('js/moment.min.js')}}"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
       <!-- optionally if you need a theme like font awesome theme you can include
           it as mentioned below -->
           <!-- bootstrap time picker -->
 
           <script type="text/javascript" src="{{ asset('js/transition.js')}}"></script>
           <script type="text/javascript" src="{{ asset('js/collapse.js')}}"></script>
-      <script src="{{ asset('plugins/select2/select2.full.min.js')}}"></script>
+
       <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
       <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
 

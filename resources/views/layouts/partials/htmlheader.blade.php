@@ -10,7 +10,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
 <link href="{{ asset('/img/favicon.png') }}" rel="icon" type="image/x-icon" />
-
+<link href="{{ asset('css/ediciones.css')}}" media="all" rel="stylesheet" type="text/css" />
    <link href="{{ asset('css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css" />
    <link href="{{ asset('themes/explorer/theme.css')}}" rel="stylesheet">
 
@@ -22,7 +22,7 @@
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link href="{{ asset('/css/skins/skin-blue.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/skins/skin-red.css') }}" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="{{ asset('/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{asset('/plugins/select2/select2.min.css')}}">
@@ -32,8 +32,8 @@
     <link href="{{ asset('/plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css">
 
     <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
-
     <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

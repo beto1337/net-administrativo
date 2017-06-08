@@ -49,11 +49,20 @@ Route::get('/editarbodega', 'BodegasController@editarbodega');
 Route::get('/editarbodega/{id}', 'BodegasController@actualizarbodega');
 Route::post('/editarstorage', 'BodegasController@editar');
 
+
 Route::get('inventario', 'InventariosController@inventarioform');
 Route::post('buscarinventario', 'InventariosController@inventario');
 Route::post('verinventario', 'InventarioController@inventario');
 
+Route::get('registrarpedido', 'PedidosController@registrarpedido');
+Route::post('registrarpedido', 'PedidosController@crearpedido');
+Route::get('confirmar', 'PedidosController@confirmar');
+Route::get('orden/{id}', 'PedidosController@ver');
+Route::post('generarguia', 'PedidosController@generarguia');
+Route::post('actualizarorden', 'PedidosController@registrarabono');
 
+Route::get('confirmar1', 'ViewController@confirmar1');
+Route::get('/verdireccion', 'ViewController@direccioncliente');
 
 
 Route::get('registrarmovimiento', 'ViewController@entradaproducto');
@@ -62,25 +71,14 @@ Route::post('registrarmovimiento', 'StorageController@registromovimiento');
 Route::get('buscarmovimiento', 'ViewController@movimientos');
 
 
-
 Route::post('/registraritem', 'StorageController@saveitem');
 Route::get('/buscarvaloritem', 'ViewController@buscarvaloritem');
-
-
-
-
-
-Route::get('/registrarreserva', 'ViewController@registrarreserva');
-Route::post('registrarreserva', 'StorageController@registrarreserva');
-Route::get('/confirmar', 'ViewController@confirmar');
-Route::get('confirmar1', 'ViewController@confirmar1');
-Route::get('/verdireccion', 'ViewController@direccioncliente');
-
-
-
-
 
 
 Route::get('usuarios', 'AdminController@usuarios');
 Route::get('registrarusuario', 'AdminController@registrarusuario');
 Route::post('registrarusuario', 'AdminController@registrarusuariof');
+
+
+Route::post('cambiarestado', 'EstadosController@cambiarestado');
+Route::get('administrador/cambiarestado/{id}', 'EstadosController@actualizarestados');

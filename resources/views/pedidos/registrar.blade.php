@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.app')
+@extends('layouts.app')
 
 @section('htmlheader_title')
 	 admin
@@ -23,10 +23,10 @@
         <div class="col-lg-5">
       <div class="box box-primary">
          <div class="box-header with-border">
-           <h3 class="box-title">Registrar Reservacion </h3>
+           <h3 class="box-title">Crear Reservacion </h3>
          </div>
        <div class="box-body">
-         <form id="form1" name="form1" role="form" enctype="multipart/form-data" method="POST" action="{{ url('registrarreserva') }}">
+         <form id="form1" name="form1" role="form" enctype="multipart/form-data" method="POST" action="{{ url('registrarpedido') }}">
          {{ csrf_field() }}
 
        <div class="form-group">
@@ -46,11 +46,14 @@
 <div class="form-group" id="bodega2">
 	<label >Bodega</label>
 	<select class="form-control select2" id="bodega" style="width: 100%;"  name="bodega_item">
-		<option value="0">Seleccione bodega</option>
+		<option value="">Seleccione bodega</option>
 		@foreach ($bodegas as $bodega)
 		<option value="{{$bodega->id}}">{{$bodega->nombre}}</option>
 		@endforeach
 		 </select>
+		 @if ($errors->has('bodega_item') )
+							<p style="color:red;margin:0px">{{ $errors->first('bodega_item') }}</p>
+						 @endif
 </div>
 @else
 <input type="hidden" name="bodega_item" id="bodega" value="{{Auth::user()->bodega_id}}">
@@ -74,8 +77,8 @@
 						 <p style="color:red;margin:0px">{{ $errors->first('cantidad') }}</p>
 						@endif
 		<div style="padding-top:4px" >
-				<a href="#" id="btnAdd" class="btn btn-primary btn-xs" value="+">+</a>
-				<a href="#" id="btnless" class="btn btn-danger btn-xs" value="-" disabled>-</a>
+				<a  id="btnAdd" class="btn btn-primary btn-xs" value="+">+</a>
+				<a  id="btnless" class="btn btn-danger btn-xs" value="-" disabled>-</a>
 		</div>
 </div>
 
@@ -104,8 +107,86 @@
 						 <p style="color:red;margin:0px">{{ $errors->first('direccion') }}</p>
 						@endif
 		 </div>
+
+		 <div class="form-group">
+ 			<label for=""></label>
+			<select class="form-control" name="estado">
+				<option value="1">PENDIENTE</option>
+				<option value="2">CONFIRMADO</option>
+			</select>
+			<p class="help-block">Pendiente para aquellas ordenes que no se pagan en su totalidad<br>
+			Confirmado para aquellas ordenes que se pagan en su totalidad</p>
+ 		 </div>
+		 <div class="form-group">
+										<label>Fecha de evento</label>
+										<input class="form-control" type="datetime-local" name="fecha_evento">
+												 </div>
+		 <div class="form-group">
+
+		                 <label>Abono</label>
+		                 <div class="input-group">
+		                   <div class="input-group-addon">
+		                     <i class="fa fa-usd"></i>
+		                   </div>
+											 <input type="text" onkeyup="format(this)" onchange="format(this)" class="form-control" name="abono" value="0">
+		                 </div>
+										 @if ($errors->has('abono') )
+												 <p style="color:red;margin:0px">{{ $errors->first('abono') }}</p>
+											 @endif
+			</div>
+
+			<div class="form-group">
+			<label class="checkbox-inline"><input type="checkbox" onclick="descuento()" id="descuentos" value="1" name="descuentos">Habilitar Descuentos</label>
+</div>
+
+
+			<div class="form-group" style="display:none" id="desc">
+ 		                 <label>Descuento</label>
+<div id="inputdesc1" class="inputdescuento" style="padding:2px">
+	<input type="text" class="form-control" name="Concepto[]" placeholder="concepto">
+<div class="input-group">
+ <div class="input-group-addon">
+	 <i class="fa fa-usd"></i>
+ </div>
+ <input type="text" onkeyup="format(this)" onchange="format(this)" class="form-control" name="descuento[]" value="0">
+</div>
+</div>
+@if ($errors->has('Concepto') )
+				 <p style="color:red;margin:0px">{{ $errors->first('Concepto') }}</p>
+				@endif
+
+
+										 <div style="padding-top:4px" >
+												 <a  id="adddescuento" class="btn btn-primary btn-xs" value="+">+</a>
+												 <a  id="lessdescuento" class="btn btn-danger btn-xs" value="-" disabled>-</a>
+										 </div>
+ 			</div>
+
+
+			<div class="form-group">
+			<label class="checkbox-inline"><input type="checkbox" onclick="showimpuesto()" id="impuesto" value="1" name="impuestos">Habilitar Recargo</label>
+		</div>
+			<div class="form-group" style="display:none" id="impu">
+ 		                 <label>Recargo</label>
+<div id="inputimpuest1" class="inputimpuesto" style="padding:2px">
+	<input type="text" class="form-control" name="conceptoimpuesto[]" placeholder="concepto">
+<div class="input-group">
+ <div class="input-group-addon">
+	 <i class="fa fa-usd"></i>
+ </div>
+ <input type="text" onkeyup="format(this)" onchange="format(this)" class="form-control" name="impuesto[]" value="0">
+</div>
+</div>
+
+										 <div style="padding-top:4px" >
+												 <a  id="addimpuesto" class="btn btn-primary btn-xs" value="+">+</a>
+												 <a  id="lessimpuesto" class="btn btn-danger btn-xs" value="-" disabled>-</a>
+										 </div>
+ 			</div>
     <div class="form-group">
+			<button type="submit" formtarget="_blank" class="btn btn-danger" name="cotizar" value="1">Cotizar</button>
     <button type="submit" class="btn btn-primary" name="button">Registrar</button>
+
      </div>
 </form>
 
@@ -118,9 +199,38 @@
 			 </div>
       </div>
 
-
-<script src="plugins/select2/select2.full.min.js"></script>
+<script src="{{ asset('plugins/select2/select2.full.min.js')}}"></script>
 <script type="text/javascript">
+function descuento() {
+
+if (document.getElementById('descuentos').checked) {
+document.getElementById('desc').style.display="block";
+}else {
+document.getElementById('desc').style.display="none";
+}
+}
+function showimpuesto() {
+	if (document.getElementById('impuesto').checked) {
+	document.getElementById('impu').style.display="block";
+	}else {
+	document.getElementById('impu').style.display="none";
+	}
+}
+
+function format(input)
+{
+var num = input.value.replace(/\./g,'');
+if(!isNaN(num)){
+num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+num = num.split('').reverse().join('').replace(/^[\.]/,'');
+input.value = num;
+}
+
+else{ alert('Solo se permiten numeros');
+input.value = input.value.replace(/[^\d\.]*/g,'');
+}
+}
+
 $('#produc1').select2();
 function capturar() {
 	direccion = document.getElementById("direc");
@@ -132,7 +242,6 @@ var url='verdireccion?id='+cliente.options[cliente.selectedIndex].value;
 }else{
 	direccion.style.display='none';
 }
-
 }
 function capturar2(id) {
 	cantidad=document.getElementById('cantidad'+id).value;
@@ -165,8 +274,13 @@ function submitform()
 }
 fecha=document.getElementById('reservation').value;
 fecha=fecha.replace(" - ", "-");
+fecha=fecha.replace(" ", "");
+fecha=fecha.replace(" ", "");
+fecha=fecha.replace(" ", "");
+fecha=fecha.replace(" ", "");
 bodega=document.getElementById('bodega').value;
 var url='confirmar?productid='+product +"&cantidad="+cantidad+"&tiempo="+fecha+"&bodega="+bodega;
+
 if (bodega==0) {
 alert('seleccione una bodega');
 }else {
@@ -237,20 +351,62 @@ $("#disponibles").load("{!!url('"+url+"')!!}");
     }
   }
 });
-        $('#btnAdd').click(function() {
-            var num     = $('.clonedInput').length;
-            var newNum  = new Number(num + 1);
-            var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
-          newElem.children(':first').attr('id', 'name' + newNum).attr('class', 'width:60%').attr('id', 'produc' + newNum).attr('onchange','capturar2('+newNum+')');
-					newElem.find("input").attr('id', 'cantidad' + newNum);
-					newElem.find("span").remove();
-					newElem.find("p").attr('id', 'disp' + newNum);
-          newElem.find("select").select2();
+$('#adddescuento').click(function() {
+		var num     = $('.inputdescuento').length;
+		var newNum  = new Number(num + 1);
+		var newElem = $('#inputdesc' + num).clone().attr('id', 'inputdesc' + newNum);
+	newElem.children(':first').attr('id', 'name' + newNum).attr('class', 'form-control').attr('id', 'produc' + newNum);
+	newElem.find("input").attr('id', 'cantidad' + newNum);
+		$('#inputdesc' + num).after(newElem);
+		$("#lessdescuento").removeAttr("disabled");
 
-            $('#input' + num).after(newElem);
-						$("#btnless").removeAttr("disabled");
+});
 
-		});
+$('#addimpuesto').click(function() {
+		var num     = $('.inputimpuesto').length;
+		var newNum  = new Number(num + 1);
+		var newElem = $('#inputimpuest' + num).clone().attr('id', 'inputimpuest' + newNum);
+	newElem.children(':first').attr('id', 'name' + newNum).attr('class', 'form-control').attr('id', 'produc' + newNum);
+	newElem.find("input").attr('id', 'cantidad' + newNum);
+		$('#inputimpuest' + num).after(newElem);
+		$("#lessimpuesto").removeAttr("disabled");
+
+});
+
+$('#lessimpuesto').click(function() {
+var num     = $('.inputimpuesto').length;
+if (num==2) {
+$('#lessimpuesto').attr('disabled','disabled');
+newElem = $('#inputimpuest' + num).remove();
+}else {
+newElem = $('#inputimpuest' + num).remove();
+}
+});
+
+
+$('#lessdescuento').click(function() {
+var num     = $('.inputdescuento').length;
+if (num==2) {
+$('#lessdescuento').attr('disabled','disabled');
+newElem = $('#inputdesc' + num).remove();
+}else {
+newElem = $('#inputdesc' + num).remove();
+}
+});
+
+
+$('#btnAdd').click(function() {
+var num     = $('.clonedInput').length;
+var newNum  = new Number(num + 1);
+var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
+newElem.children(':first').attr('id', 'name' + newNum).attr('class', 'width:60%').attr('id', 'produc' + newNum).attr('onchange','capturar2('+newNum+')');
+newElem.find("input").attr('id', 'cantidad' + newNum);
+newElem.find("span").remove();
+newElem.find("p").attr('id', 'disp' + newNum);
+newElem.find("select").select2().attr('onchange','capturar2('+newNum+')').attr('id', 'produc' + newNum);
+$('#input' + num).after(newElem);
+$("#btnless").removeAttr("disabled");
+});
 		$('#btnless').click(function() {
 				var num = $('.clonedInput').length;
 if (num==2) {

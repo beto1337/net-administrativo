@@ -149,15 +149,25 @@ class ProductosController extends Controller
     foreach ($linkviejo as $key) {
       $imagen=$key->imagen;
     }
+
     if (empty($imagen)) {
     $linki=implode(",",$link_);
   }else {
-    $linki=implode(",",$link_).','.$imagen;
+    if ($link_[0]=="") {
+      $linki=$imagen;
+    }else {
+      $linki=implode(",",$link_).','.$imagen;
+    }
+  }
+  if ($request->has('categoria')) {
+    $categoria=$request->categoria;
+  }else {
+    $categoria=0;
   }
   //echo $request->codigoprincipal;
   //return $codigo;
   DB::table('app_productos')->where('codigo',$request->codigoprincipal)->update(['nombre'=>strtoupper($request->nombre),'codigo'=>$codigo,
-  'descripcion'=>strtoupper($request->descripcion),'vl_mayorista'=>$request->vrmayorista,'vl_minorista'=>$request->vrminorista,
+  'categoria'=>$categoria,'descripcion'=>strtoupper($request->descripcion),'vl_mayorista'=>$request->vrmayorista,'vl_minorista'=>$request->vrminorista,
   'imagen'=>$linki]);
 
   Session::flash('flash_message', 'se ha guardado el siguiente producto: ' .strtoupper($request->nombre));

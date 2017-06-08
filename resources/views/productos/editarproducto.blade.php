@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.app')
+@extends('layouts.app')
 
 @section('htmlheader_title')
 	{{ trans('adminlte_lang::message.home') }}
@@ -85,6 +85,8 @@
 </div>
 <script src="{{ asset('js/fileinput.min.js')}}"></script>
 <script src="{{ asset('themes/explorer/theme.js')}}"></script>
+<script src="{{ asset('plugins/select2/select2.full.min.js')}}"></script>
+
 <script type="text/javascript">
 $(document).on('ready', function() {
     $("#input-24").fileinput();
